@@ -5,7 +5,7 @@ import viteLogo from "/vite.svg";
 function Layout() {
   return (
     <>
-      <VStack gap="0">
+      <VStack gap="0" h="100%">
         <Box bg="cyan.700" h="10px" w="100%" />
         <Flex as="nav" align="center" w="100%" color="black">
           <a href="https://vitejs.dev" target="_blank">

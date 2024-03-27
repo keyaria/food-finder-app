@@ -1,9 +1,10 @@
 import { useState } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
+//import reactLogo from "../assets/react.svg";
+
 import "../App.css";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+
 import {
-  Box,
   Button,
   Flex,
   Grid,
@@ -11,6 +12,11 @@ import {
   Input,
   SimpleGrid,
 } from "@chakra-ui/react";
+
+const cogentLocation = {
+  lat: 35.665499,
+  long: 139.7382,
+};
 
 function HomePage() {
   return (
@@ -33,7 +39,22 @@ function HomePage() {
           res
         </GridItem>
         {/* Map Component */}
-        <GridItem colSpan={3}>Map</GridItem>
+        <GridItem colSpan={3}>
+          <Map
+            style={{ width: "100%", height: "100%" }}
+            defaultCenter={{
+              lat: cogentLocation.lat,
+              lng: cogentLocation.long,
+            }}
+            defaultZoom={16}
+            gestureHandling={"greedy"}
+            disableDefaultUI={true}
+          >
+            <Marker
+              position={{ lat: cogentLocation.lat, lng: cogentLocation.long }}
+            />
+          </Map>
+        </GridItem>
       </Grid>
     </>
   );

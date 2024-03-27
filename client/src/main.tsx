@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/Home.tsx";
 import ErrorPage from "./pages/Error.tsx";
 import Layout from "./componens/Layout.tsx";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
-      <RouterProvider router={router} />
+      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+        <RouterProvider router={router} />
+      </APIProvider>
     </ChakraProvider>
   </React.StrictMode>,
 );
