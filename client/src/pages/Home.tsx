@@ -15,12 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { Restaurant } from "../types/Restaurant";
 
+import RestaurantCard from "../componens/Restaurant/RestaurantCard";
+
 const cogentLocation = {
   lat: 35.665499,
   long: 139.7382,
 };
-
-function HomePage() {
   async function fetchPlace(): Promise<Restaurant> {
     const response = await fetch(
       `http://localhost:8080/restaurant/place?lat=${cogentLocation.lat}&lng=${cogentLocation.long}`,
@@ -28,18 +28,22 @@ function HomePage() {
     if (!response.ok) {
       throw new Error("Problem fetching restaurant");
     }
-    const restaurant: Restaurant = await response.json();
-    return restaurant;
+   // restaurant = response.json()
+   const restaurant = response.json();
+   return restaurant;
   }
+function HomePage() {
+  const [restaurant, setRestaurant] = useState()
 
   const {
     status,
     data: recRestaurant,
     error,
   } = useQuery<Restaurant>({
-    queryKey: ["todos"],
-    queryFn: fetchPlace,
-  });
+    queryKey: ["getPlace"],
+    queryFn:  fetchPlace
+
+  } );
 
   if (recRestaurant) {
     console.log("res", recRestaurant);
@@ -65,7 +69,7 @@ function HomePage() {
       <Grid templateColumns="repeat(5, 1fr)" w="100%" h="100%">
         {/* Restaurant Component */}
         <GridItem bg="gray.50" colSpan={2}>
-          res
+          {recRestaurant && <RestaurantCard restaurant={recRestaurant} />}
         </GridItem>
         {/* Map Component */}
         <GridItem colSpan={3}>

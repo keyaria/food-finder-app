@@ -9,6 +9,10 @@ dotenv.config();
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const client = new Client({});
 
+/**
+ * GET search for restaurants
+ */
+
 export const getPlace = async (
   req: Request,
   res: Response,
@@ -37,5 +41,28 @@ export const getPlace = async (
     .catch((e) => {
       next(e);
       //res.json(e)
+    });
+};
+
+export const getPlaceInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const id = req.params.id;
+
+  client
+    .placeDetails({
+      params: {
+        key: API_KEY!,
+        place_id: id,
+        fields: ["name", "types", "rating", "reviews", "photos"],
+      },
+    })
+    .then((r) => {
+      res.json(r.data.result);
+    })
+    .catch((e) => {
+      next(e.data);
     });
 };
