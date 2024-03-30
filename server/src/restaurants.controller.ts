@@ -60,7 +60,33 @@ export const getPlaceInfo = async (
       },
     })
     .then((r) => {
+      console.log(r.data.result);
       res.json(r.data.result);
+    })
+    .catch((e) => {
+      next(e.data);
+    });
+};
+
+export const getSearchResults = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { text, lat, lng } = req.query;
+
+  await client
+    .textSearch({
+      params: {
+        key: API_KEY!,
+        query: text as string,
+        location: `${lat},${lng}`,
+        radius: 500,
+      },
+    })
+    .then((r) => {
+      console.log("here", r.data.results);
+      return res.json(r.data.results);
     })
     .catch((e) => {
       next(e.data);
