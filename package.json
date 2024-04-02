@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./server/index.ts",
-    "build": "npx tsc",
     "format": "prettier --write \"{server,test}/**/*.{js,ts}\""
   },
   "dependencies": {
