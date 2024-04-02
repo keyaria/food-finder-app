@@ -17,7 +17,7 @@ async function fetchRestaurantInfo(
   id: string | undefined,
 ): Promise<RestaurantResponse> {
   console.log("sea", id);
-  const response = await fetch("http://localhost:8080/restaurant/place/" + id);
+  const response = await fetch("/place/" + id);
   if (!response.ok) {
     throw new Error("Problem fetching restaurant");
   }

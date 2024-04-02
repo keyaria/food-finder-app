@@ -51,7 +51,7 @@ function HomePage() {
 
         // if not, get the data
         const data = await fetch(
-          `http://localhost:8080/restaurant/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${arg.queryKey[0].split("/")[1]}`,
+          `${import.meta.env.VITE_API_BASE_URL}/restaurant/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${arg.queryKey[0].split("/")[1]}`,
         );
 
         const restaurants = await data;

@@ -14,7 +14,7 @@ export async function fetchPlace(): Promise<RestaurantResponse> {
 
 export async function fetchSearch(text: string): Promise<Restaurant[]> {
   const response = await fetch(
-    `http://localhost:8080/restaurant/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${text}`,
+    `/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${text}`,
   );
 
   if (!response.ok) {
