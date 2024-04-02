@@ -10,66 +10,58 @@ import {
   Grid,
   GridItem,
   Input,
-  SimpleGrid,
   Card,
-  Text,
 } from "@chakra-ui/react";
-import { Restaurant } from "../types/Restaurant";
+import { Restaurant, RestaurantResponse } from "../types/Restaurant";
 
 import RestaurantCard from "../components/Restaurant/RestaurantCard";
 import useDebounce from "../hooks/useDebounce";
 import {
   useQueryClient,
-  useSuspenseQuery,
   useIsFetching,
 } from "@tanstack/react-query";
 import { fetchPlace } from "../helpers/helpers";
 import { cogentLocation } from "../constants/data";
 
-
-// TODO: add simple Errors and validation
+// TODO: add simple Errors and validation, Make Map Component, add get random Restaurant Button
 function HomePage() {
-  const [restaurant, setRestaurant] = useState();
-
   const [queryId, setQueryId] = useState<string>("1");
-  // const [text, setText] = useState<string>("home");
 
-  const [searchedRestaurants, setSearchedRestaurants] = useState([]);
   const queryClient = useQueryClient();
 
   const {
     status,
     data: recRestaurant,
     error,
-  } = useQuery<Restaurant>({
+  } = useQuery<RestaurantResponse>({
     queryKey: ["getPlace"],
     queryFn: fetchPlace,
   });
 
   // TODO: Fix bug, search is called onMount
   //Checks Cache after debouncing to see if data has already been retrieved
-  const { data: searchResults, isLoading } =useDebounce(useQuery({
-    queryKey: [`getResults/${queryId}`],
-    queryFn: async (arg) => {
-      const cache = getFromCache(`getResults/${queryId}`); // try to access the data from cache
-      if (cache) return cache; // use the data if in the cache
+  const { data: searchResults, isLoading } = useDebounce(
+    useQuery({
+      queryKey: [`getResults/${queryId}`],
+      queryFn: async (arg) => {
+        const cache = getFromCache(`getResults/${queryId}`); // try to access the data from cache
+        if (cache) return cache; // use the data if in the cache
 
-      // if not, get the data
-      const data = await fetch(
-        `http://localhost:8080/restaurant/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${arg.queryKey[0].split("/")[1]}`,
-      );
+        // if not, get the data
+        const data = await fetch(
+          `http://localhost:8080/restaurant/search?lat=${cogentLocation.lat}&lng=${cogentLocation.long}&text=${arg.queryKey[0].split("/")[1]}`,
+        );
 
-      const restaurants = await data;
-      console.log("the res", restaurants);
-      return restaurants.json();
-    },
-  }), 500);
+        const restaurants = await data;
+        console.log("the res", restaurants);
+        return restaurants.json();
+      },
+    }),
+    500,
+  );
 
   const searching = useIsFetching({ queryKey: ["getResults"] }) > 0;
 
-  if (searchResults) {
-    console.log("res", searchResults);
-  }
   if (error) {
     console.log("error", error);
   }
@@ -103,7 +95,7 @@ function HomePage() {
           {/* {isLoading ? "loading" : searchResults} */}
           <div id="search-spinner" aria-hidden hidden={!searching} />
           <Card></Card>
-          {recRestaurant && <RestaurantCard restaurant={recRestaurant} />}
+          {recRestaurant && <RestaurantCard restaurantInfo={recRestaurant} />}
         </GridItem>
         {/* Map Component */}
         <GridItem colSpan={3}>
@@ -123,8 +115,8 @@ function HomePage() {
             {recRestaurant && (
               <Marker
                 position={{
-                  lat: recRestaurant.geometry.location.lat,
-                  lng: recRestaurant.geometry.location.lng,
+                  lat: recRestaurant.restaurant.geometry.location.lat,
+                  lng: recRestaurant.restaurant.geometry.location.lng,
                 }}
               />
             )}

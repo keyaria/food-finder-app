@@ -256,6 +256,13 @@
   dependencies:
     "@chakra-ui/shared-utils" "2.0.5"
 
+"@chakra-ui/icons@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-2.1.1.tgz#58ff0f9e703f2f4f89debd600ce4e438f43f9c9a"
+  integrity sha512-3p30hdo4LlRZTT5CwoAJq3G9fHI0wDc0pBaMHj4SUn0yomO+RcDRlzhdXqdr5cVnzax44sqXJVnf3oQG0eI+4g==
+  dependencies:
+    "@chakra-ui/icon" "3.2.0"
+
 "@chakra-ui/image@2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/image/-/image-2.1.0.tgz#6c205f1ca148e3bf58345b0b5d4eb3d959eb9f87"
@@ -1237,6 +1244,11 @@
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.13.1.tgz#d1b221daca9afca1885b91a311c6f4a04b0deeb5"
   integrity sha512-YY1Exxo2viZ/O2dMHuwQvimJ0SqvL+OAWQLLY6rvXavgQKjhQUzn7nc1Dd29gjB5Fqi00nrBWctJBOyfVMIVxw==
+
+"@smastrom/react-rating@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@smastrom/react-rating/-/react-rating-1.5.0.tgz#c7e7d3ae3334d6488a9af7b7d23578d49631d0ae"
+  integrity sha512-7vg3NRgO0tpvEunq8BEWA8qckNSd7x3dVGqaNEfLs3Ow4ibU2EEXJtnd7Yl44xOujWIzXM5Bk2VZm2DVm065Qw==
 
 "@swc/core-darwin-arm64@1.4.11":
   version "1.4.11"

@@ -2,12 +2,11 @@
 
 Application to help find food near the office. Users can get random restaurants, search for a specific type of restaurants and view specific information a restaurant.
 
-## Techinical Stack
+## Technical Stack
 
 - ReactJS / Typescript
 - ViteJS
 - ChakraUI
-  // not yet added
 - ExpressJS
 - NodeJS
 
@@ -17,7 +16,9 @@ Application to help find food near the office. Users can get random restaurants,
 
 #### ChakraUI
 
-- A component library to speed up the designing the UI
+- A component library to speed up the designing the UI, this allows for quick UI development.
+
+#### ExpressJS / NodeJS
 
 ### Build Instructions
 
@@ -31,5 +32,7 @@ yarn dev / npm run dev
 Open http://localhost:5173 with your browser to see the result
 
 ## Trade Offs
+
+1. Backend Image Processing
 
 ### Links

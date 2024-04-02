@@ -1,7 +1,7 @@
 import { cogentLocation } from "../constants/data";
-import { Restaurant } from "../types/Restaurant";
+import { Restaurant, RestaurantResponse } from "../types/Restaurant";
 
-export async function fetchPlace(): Promise<Restaurant> {
+export async function fetchPlace(): Promise<RestaurantResponse> {
   const response = await fetch(
     `http://localhost:8080/restaurant/place?lat=${cogentLocation.lat}&lng=${cogentLocation.long}`,
   );

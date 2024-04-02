@@ -34,4 +34,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+app.use(express.static("public"));
+
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

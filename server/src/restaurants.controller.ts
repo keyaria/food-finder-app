@@ -25,18 +25,44 @@ export const getPlace = async (
       params: {
         key: process.env.GOOGLE_MAPS_API_KEY!,
         location: `${lat},${lng}`,
-        radius: 1500,
+        radius: 500,
         type: "restaurant",
       },
       timeout: 1000,
     })
-    .then((r) => {
-      console.log(r.data);
+    .then(async (r) => {
+      //console.log(r.data);
 
       // Choose a random restaurant from the response
       const randomIndex = Math.floor(Math.random() * r.data.results.length);
       const randomRestaurant = r.data.results[randomIndex];
-      res.json(randomRestaurant);
+
+      if (randomRestaurant.photos && randomRestaurant.photos.length > 0) {
+        const photoReference = randomRestaurant.photos[0].photo_reference;
+
+        const photoResponse = await client.placePhoto({
+          params: {
+            key: API_KEY!,
+            photoreference: photoReference,
+            maxheight: 400,
+          },
+          responseType: "arraybuffer",
+        });
+
+        // res.setHeader('Content-Type', photoResponse.headers['content-type']);
+
+        // console.log('here', photoResponse.data)
+        // photoResponse.data.pipe(res);
+        const imageBase64 = Buffer.from(photoResponse.data, "binary").toString(
+          "base64",
+        );
+
+        res.json({ restaurant: randomRestaurant, photoStream: imageBase64 });
+      } else {
+        res.json({ restaurant: randomRestaurant });
+      }
+
+      // res.json(randomRestaurant);
     })
     .catch((e) => {
       next(e);
@@ -44,24 +70,57 @@ export const getPlace = async (
     });
 };
 
+//TODO: repeating code modify it
 export const getPlaceInfo = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   const id = req.params.id;
+  let photosArr = [] as string[];
 
   client
     .placeDetails({
       params: {
         key: API_KEY!,
         place_id: id,
-        fields: ["name", "types", "rating", "reviews", "photos"],
+        fields: ["name", "types", "rating", "reviews", "photos", "photo"],
       },
     })
-    .then((r) => {
-      console.log(r.data.result);
-      res.json(r.data.result);
+    .then(async (r) => {
+      // console.log(r.data.result);
+      // res.json(r.data.result);
+      const result = r.data.result;
+
+      if (result.photos && result.photos.length > 0) {
+        const photoPromises = result.photos.map(async (photo) => {
+          const photoReference = photo.photo_reference;
+          const photoResponse = await client.placePhoto({
+            params: {
+              key: API_KEY!,
+              photoreference: photoReference,
+              maxwidth: 1200,
+            },
+            responseType: "arraybuffer",
+          });
+          return Buffer.from(photoResponse.data, "binary").toString("base64");
+
+          //photosArr.push(imageBase64)
+        });
+
+        // Wait for all photo promises to resolve
+        const photoData = await Promise.all(photoPromises);
+
+        console.log("photo", photoData);
+        // res.setHeader('Content-Type', photoResponse.headers['content-type']);
+
+        // console.log('here', photoResponse.data)
+        // photoResponse.data.pipe(res);
+
+        res.json({ restaurant: r.data.result, photoStream: photoData });
+      } else {
+        res.json({ restaurant: r });
+      }
     })
     .catch((e) => {
       next(e.data);
@@ -91,4 +150,34 @@ export const getSearchResults = async (
     .catch((e) => {
       next(e.data);
     });
+};
+
+export const getPhotos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id } = req.query;
+
+  console.log("undefined", req.query);
+
+  if (req.query.photos !== undefined) {
+    const reference = (req.query.photos as any[])[0].photoreference;
+    client
+      .placePhoto({
+        params: {
+          key: API_KEY!,
+          photoreference: reference,
+          maxheight: 400,
+        },
+        responseType: "blob",
+      })
+      .then((r) => {
+        console.log("data", r);
+        return r.data;
+      })
+      .catch((e) => {
+        next(e.data);
+      });
+  }
 };
