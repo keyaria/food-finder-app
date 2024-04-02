@@ -9,14 +9,14 @@ function RestaurantCard({ restaurantInfo }: any) {
     activeFillColor: "#ffb700",
     inactiveFillColor: "#fbf1a9",
   };
-
+console.log('restra')
   return (
     <VStack>
       <ChakraLink
         as={ReactRouterLink}
         to={`/restaurant/` + restaurantInfo.restaurant.place_id}
       >
-        <Heading as="h3" py="4" size="lg">
+        <Heading as="h3" py="4" size="lg" data-testid="heading">
           {restaurantInfo.restaurant.name}
         </Heading>
       </ChakraLink>
@@ -24,6 +24,7 @@ function RestaurantCard({ restaurantInfo }: any) {
         src={`data:image/jpeg;base64,${restaurantInfo.photoStream}`}
         alt="Restaurant"
         maxH="12rem"
+        data-testid="restaurant"
       />
       <Rating
         style={{ maxWidth: 150 }}
