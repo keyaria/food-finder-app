@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = 8080;
+const port =  8080 || 3000;
 
 //const server = Server(app);
 
@@ -36,4 +36,4 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.use(express.static("public"));
 
-app.listen(port, () => console.log(`Server listening on port ${port}!`));
+app.listen(port, "0.0.0.0", function(){console.log(`Server listening on port ${port}!`)});
