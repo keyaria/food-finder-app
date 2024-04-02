@@ -1,12 +1,7 @@
 import {
-  APIProvider,
   AdvancedMarker,
-  InfoWindow,
   Map,
-  Marker,
   Pin,
-  useAdvancedMarkerRef,
-  useMarkerRef,
 } from "@vis.gl/react-google-maps";
 import { cogentLocation } from "../constants/data";
 import { Restaurant, RestaurantResponse } from "../types/Restaurant";

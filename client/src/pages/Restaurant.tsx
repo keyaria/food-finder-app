@@ -29,7 +29,7 @@ async function fetchRestaurantInfo(
 function RestaurantPage() {
   let { id } = useParams();
 
-  const { status, data, error, isLoading } = useQuery<RestaurantResponse>({
+  const { data, error, isLoading } = useQuery<RestaurantResponse>({
     queryKey: ["getInfo"],
     queryFn: () => fetchRestaurantInfo(id),
   });

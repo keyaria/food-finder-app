@@ -1,8 +1,8 @@
-import { Box, Flex, HStack, Heading, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import viteLogo from "/vite.svg";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 function Layout() {
   return (

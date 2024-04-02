@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import "../App.css";
 
-import { Button, Flex, Grid, GridItem, Input, Card } from "@chakra-ui/react";
+import { Button, Flex, Grid, GridItem, Input } from "@chakra-ui/react";
 import { Restaurant, RestaurantResponse } from "../types/Restaurant";
 
 import RestaurantCard from "../components/Restaurant/RestaurantCard";
@@ -31,7 +31,6 @@ function HomePage() {
   // const closeInfoWindow = () => setInfowindowShown(false);
 
   const {
-    status,
     data: recRestaurant,
     error,
   } = useQuery<RestaurantResponse>({
@@ -43,8 +42,6 @@ function HomePage() {
   //Checks Cache after debouncing to see if data has already been retrieved
   const {
     data: searchResults,
-    isLoading,
-    refetch,
   } = useDebounce(
     useQuery({
       queryKey: [`getResults/${queryId}`],

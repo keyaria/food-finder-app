@@ -1,4 +1,4 @@
-import { Card } from "@chakra-ui/react";
+//import { Card } from "@chakra-ui/react";
 
 function AllRestaurantsCard({ restaurants }: any) {
   console.log("restaurantssss", restaurants);
