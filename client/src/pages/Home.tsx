@@ -13,7 +13,7 @@ import { fetchPlace } from "../helpers/helpers";
 import { cogentLocation } from "../constants/data";
 
 import CustomMap from "../components/Map";
-import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
+// import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
 
 // TODO: add simple Errors and validation, Make Map Component, add get random Restaurant Button
 function HomePage() {
@@ -22,13 +22,13 @@ function HomePage() {
   const [selectedRes, setSelectedRes] = useState<Restaurant>();
 
   const queryClient = useQueryClient();
-  const [markerRef, marker] = useAdvancedMarkerRef();
-  const [infowindowShown, setInfowindowShown] = useState(false);
+  // const [markerRef, marker] = useAdvancedMarkerRef();
+  // const [infowindowShown, setInfowindowShown] = useState(false);
 
-  const toggleInfoWindow = () =>
-    setInfowindowShown((previousState) => !previousState);
+  // const toggleInfoWindow = () =>
+  //   setInfowindowShown((previousState) => !previousState);
 
-  const closeInfoWindow = () => setInfowindowShown(false);
+  // const closeInfoWindow = () => setInfowindowShown(false);
 
   const {
     status,
@@ -106,7 +106,7 @@ function HomePage() {
       <Grid templateColumns={{ md: "repeat(5, 1fr)" }} w="100%" h="100%">
         {/* Restaurant Component */}
         <GridItem bg="gray.50" colSpan={2}>
-          {/* {isLoading ? "loading" : searchResults} */}
+
           <div id="search-spinner" aria-hidden hidden={!searching} />
           {recRestaurant && <RestaurantCard restaurantInfo={recRestaurant} />}
         </GridItem>

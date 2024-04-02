@@ -22,7 +22,7 @@ export const getPlace = async (
       params: {
         key: process.env.GOOGLE_MAPS_API_KEY!,
         location: `${lat},${lng}`,
-        radius: 500,
+        radius: 1000,
         type: "restaurant",
       },
       timeout: 1000,
@@ -117,7 +117,7 @@ export const getSearchResults = async (
         key: API_KEY!,
         query: text as string,
         location: `${lat},${lng}`,
-        radius: 500,
+        radius: 1000,
       },
     })
     .then((r) => {

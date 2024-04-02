@@ -29,7 +29,7 @@ const CustomMap = ({
         lat: cogentLocation.lat,
         lng: cogentLocation.long,
       }}
-      defaultZoom={16}
+      defaultZoom={15}
       gestureHandling={"greedy"}
       disableDefaultUI={true}
       mapId={"bf51a910020fa25a"}
@@ -51,7 +51,9 @@ const CustomMap = ({
             lng: recRestaurant.restaurant.geometry.location.lng,
           }}
         >
-          <Pin></Pin>
+   
+          <Pin> 
+   </Pin>
         </AdvancedMarker>
       )}
       {searchResults &&
@@ -68,7 +70,8 @@ const CustomMap = ({
                 onClick={() => {
                   setSelectedRes(item);
                 }}
-              />
+             />
+
             </>
           );
         })}

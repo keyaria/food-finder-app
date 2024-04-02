@@ -86,7 +86,7 @@ function RestaurantPage() {
               return (
                 <Card p="1.2rem" w={["100%", "90%"]} mb="1rem">
                   <Flex>
-                    {" "}
+
                     <Avatar
                       name={review.author_name}
                       src={review.profile_photo_url}
