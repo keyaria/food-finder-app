@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import { Client, PlaceInputType } from "@googlemaps/google-maps-services-js";
-
-//const { sendServerError, sendOkResponse } = require("../../core/responses");
-//const Reservation = require("./reservation.model");
+import { Client } from "@googlemaps/google-maps-services-js";
 
 dotenv.config();
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
@@ -31,8 +28,6 @@ export const getPlace = async (
       timeout: 1000,
     })
     .then(async (r) => {
-      //console.log(r.data);
-
       // Choose a random restaurant from the response
       const randomIndex = Math.floor(Math.random() * r.data.results.length);
       const randomRestaurant = r.data.results[randomIndex];
@@ -49,10 +44,6 @@ export const getPlace = async (
           responseType: "arraybuffer",
         });
 
-        // res.setHeader('Content-Type', photoResponse.headers['content-type']);
-
-        // console.log('here', photoResponse.data)
-        // photoResponse.data.pipe(res);
         const imageBase64 = Buffer.from(photoResponse.data, "binary").toString(
           "base64",
         );
@@ -61,16 +52,12 @@ export const getPlace = async (
       } else {
         res.json({ restaurant: randomRestaurant });
       }
-
-      // res.json(randomRestaurant);
     })
     .catch((e) => {
       next(e);
-      //res.json(e)
     });
 };
 
-//TODO: repeating code modify it
 export const getPlaceInfo = async (
   req: Request,
   res: Response,
@@ -88,8 +75,6 @@ export const getPlaceInfo = async (
       },
     })
     .then(async (r) => {
-      // console.log(r.data.result);
-      // res.json(r.data.result);
       const result = r.data.result;
 
       if (result.photos && result.photos.length > 0) {
@@ -104,18 +89,10 @@ export const getPlaceInfo = async (
             responseType: "arraybuffer",
           });
           return Buffer.from(photoResponse.data, "binary").toString("base64");
-
-          //photosArr.push(imageBase64)
         });
 
         // Wait for all photo promises to resolve
         const photoData = await Promise.all(photoPromises);
-
-        console.log("photo", photoData);
-        // res.setHeader('Content-Type', photoResponse.headers['content-type']);
-
-        // console.log('here', photoResponse.data)
-        // photoResponse.data.pipe(res);
 
         res.json({ restaurant: r.data.result, photoStream: photoData });
       } else {
@@ -144,7 +121,6 @@ export const getSearchResults = async (
       },
     })
     .then((r) => {
-      console.log("here", r.data.results);
       return res.json(r.data.results);
     })
     .catch((e) => {
@@ -159,8 +135,6 @@ export const getPhotos = async (
 ) => {
   const { id } = req.query;
 
-  console.log("undefined", req.query);
-
   if (req.query.photos !== undefined) {
     const reference = (req.query.photos as any[])[0].photoreference;
     client
@@ -173,7 +147,6 @@ export const getPhotos = async (
         responseType: "blob",
       })
       .then((r) => {
-        console.log("data", r);
         return r.data;
       })
       .catch((e) => {
