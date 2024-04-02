@@ -39,6 +39,9 @@ Frontend
 ```
 cd client
 
+Create env file with VITE_GOOGLE_MAPS_API_KEY set to google maps api key
+(this can be retrieved through making a developer Google account and enabling maps and places api or using the key found in the figma file )
+
 yarn add / npm install
 
 yarn dev / npm run dev
@@ -47,6 +50,8 @@ yarn dev / npm run dev
 
 Backend
 ```
+Create env file with GOOGLE_MAPS_API_KEY set to google maps api key
+
 yarn add / npm install
 
 yarn start / npm run start
@@ -78,5 +83,7 @@ yarn cypress open
 ### Links
 
 Personal Site: https://keyaria.github.io/
+
+Linkedin: https://www.linkedin.com/in/keyaria-walker-90749b106/
 
 Worked on 
