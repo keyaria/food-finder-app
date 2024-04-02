@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port =  8080 || 3000;
+const port =   parseInt(<string>process.env.PORT) || 3000;
 
 //const server = Server(app);
 
