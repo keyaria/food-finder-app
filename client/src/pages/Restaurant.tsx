@@ -4,14 +4,13 @@ import {
   CircularProgress,
   Heading,
   Image,
-  Box,
   Flex,
   Avatar,
   Card,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { Restaurant, RestaurantResponse } from "../types/Restaurant";
+import { RestaurantResponse } from "../types/Restaurant";
 import { Rating, ThinStar } from "@smastrom/react-rating";
 
 async function fetchRestaurantInfo(

@@ -1,15 +1,16 @@
-import { VStack, Heading, Text, Link, Image, Icon } from "@chakra-ui/react";
+import { VStack, Heading, Text, Image } from "@chakra-ui/react";
 import { Rating, ThinStar } from "@smastrom/react-rating";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 function RestaurantCard({ restaurantInfo }: any) {
+
   const myStyles = {
     itemShapes: ThinStar,
     activeFillColor: "#ffb700",
     inactiveFillColor: "#fbf1a9",
   };
-console.log('restra')
+
   return (
     <VStack>
       <ChakraLink
@@ -37,11 +38,9 @@ console.log('restra')
         # of User Ratings: {restaurantInfo.restaurant.user_ratings_total}
       </Text>
 
-      <Text mx="auto" textColor={"gray"}>
+      <Text mx="auto" textColor={"gray"} px="10" textAlign="center">
         {restaurantInfo.restaurant.vicinity}
       </Text>
-      {/* <Icons count={5} /> */}
-      {/* <Text>{inputs.map((i:any) => '$')}</Text> */}
     </VStack>
   );
 }

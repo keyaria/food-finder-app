@@ -23,8 +23,8 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: rgb(159, 161, 184);
-  text-decoration: none;
+  color: rgb(75, 76, 90);
+  text-decoration: none !important;
 }
 html {
   height: 100%;

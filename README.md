@@ -25,14 +25,24 @@ Application to help find food near the office. Users can get random restaurants,
 
 ### Build Instructions
 
+Frontend
+
 ```
+cd client
+
 yarn add / npm install
 
 yarn dev / npm run dev
 
 ```
 
+Backend
+```
+yarn add / npm install
 
+yarn start / npm run start
+
+```
 Open http://localhost:5173 with your browser to see the result
 
 ### Testing Instructions
@@ -48,5 +58,6 @@ yarn cypress open
 ## Additional Feature
 1. User Favorites
   - To further expand, one can add a heart button that will store a list of the restaurants the user likes. For a simple solution without a BE, it can be done with context and localStorage. 
+2. List all the restaurants shown on Left side and have next and back buttons.
 
 ### Links

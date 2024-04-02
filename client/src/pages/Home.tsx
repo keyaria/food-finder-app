@@ -2,19 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import "../App.css";
-import {
-  APIProvider,
-  AdvancedMarker,
-  InfoWindow,
-  Map,
-  Marker,
-  Pin,
-  useAdvancedMarkerRef,
-  useMarkerRef,
-} from "@vis.gl/react-google-maps";
 
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { Button, Flex, Grid, GridItem, Input, Card } from "@chakra-ui/react";
 import { Restaurant, RestaurantResponse } from "../types/Restaurant";
 
@@ -23,7 +11,9 @@ import useDebounce from "../hooks/useDebounce";
 import { useQueryClient, useIsFetching } from "@tanstack/react-query";
 import { fetchPlace } from "../helpers/helpers";
 import { cogentLocation } from "../constants/data";
-import AllRestaurantsCard from "../components/Restaurant/AllRestaurants";
+
+import CustomMap from "../components/Map";
+import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
 
 // TODO: add simple Errors and validation, Make Map Component, add get random Restaurant Button
 function HomePage() {
@@ -51,7 +41,11 @@ function HomePage() {
 
   // TODO: Fix bug, search is called onMount
   //Checks Cache after debouncing to see if data has already been retrieved
-  const { data: searchResults, isLoading } = useDebounce(
+  const {
+    data: searchResults,
+    isLoading,
+    refetch,
+  } = useDebounce(
     useQuery({
       queryKey: [`getResults/${queryId}`],
       queryFn: async (arg) => {
@@ -88,6 +82,11 @@ function HomePage() {
     return queryClient.getQueryData([key]);
   };
 
+  const handleClick = () => {
+    // manually refetch
+    setQueryId("1");
+    setSearchTerm("    ");
+  };
   return (
     <>
       <Flex align="center" justify="center" w="100%" bg="cyan.50" px="1rem">
@@ -102,9 +101,9 @@ function HomePage() {
           data-testid="search"
           onChange={(e) => handleChange(e.target.value)}
         />
-        <Button>Search</Button>
+        <Button onClick={handleClick}>Find Restaurant</Button>
       </Flex>
-      <Grid templateColumns="repeat(5, 1fr)" w="100%" h="100%">
+      <Grid templateColumns={{ md: "repeat(5, 1fr)" }} w="100%" h="100%">
         {/* Restaurant Component */}
         <GridItem bg="gray.50" colSpan={2}>
           {/* {isLoading ? "loading" : searchResults} */}
@@ -113,65 +112,11 @@ function HomePage() {
         </GridItem>
         {/* Map Component */}
         <GridItem colSpan={3}>
-          <Map
-            style={{ width: "100%", height: "100%", minHeight: "100vh" }}
-            defaultCenter={{
-              lat: cogentLocation.lat,
-              lng: cogentLocation.long,
-            }}
-            defaultZoom={16}
-            gestureHandling={"greedy"}
-            disableDefaultUI={true}
-            mapId={"bf51a910020fa25a"}
-          >
-            <AdvancedMarker
-              position={{ lat: cogentLocation.lat, lng: cogentLocation.long }}
-              data-testid="marker"
-            >
-              <Pin
-                background={"#22ccff"}
-                borderColor={"#1e89a1"}
-                glyphColor={"#0f677a"}
-              ></Pin>
-            </AdvancedMarker>
-            {recRestaurant && (
-              <AdvancedMarker
-                position={{
-                  lat: recRestaurant.restaurant.geometry.location.lat,
-                  lng: recRestaurant.restaurant.geometry.location.lng,
-                }}
-              >
-                <Pin></Pin>
-              </AdvancedMarker>
-            )}
-            {searchResults &&
-              searchResults.map((item: Restaurant) => {
-                return (
-                  <>
-                    <AdvancedMarker
-                      position={{
-                        lat: item.geometry.location.lat,
-                        lng: item.geometry.location.lng,
-                      }}
-                      // ref={markerRef}
-                      data-testid="searchResults"
-                      onClick={() => {
-                        setSelectedRes(item);
-                      }}
-                    />
-                    {/* {infowindowShown && (
-                  <InfoWindow anchor={marker}>
-                             <ChakraLink
-        as={ReactRouterLink}
-        to={`/restaurant/` + item.place_id}
-      >{item.name}
-                </ChakraLink>
-                </InfoWindow>
-                  )} */}
-                  </>
-                );
-              })}
-          </Map>
+          <CustomMap
+            recRestaurant={recRestaurant}
+            searchResults={searchResults}
+            setSelectedRes={setSelectedRes}
+          />
         </GridItem>
       </Grid>
     </>
