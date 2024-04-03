@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./server/index.ts",
-    "build": "tsc && vite build",
     "format": "prettier --write \"{server,test}/**/*.{js,ts}\"",
     "test": "vitest"
   },
