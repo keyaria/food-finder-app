@@ -35,7 +35,6 @@ describe("getPlace", () => {
         restaurant: { place_id: "HDAONSK_SD" },
         photoStream: "A IMAGE ARRAY BUFFER",
       });
-      console.log(result.current);
     });
   });
 });

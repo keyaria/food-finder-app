@@ -69,15 +69,4 @@ const CustomMap = ({
   );
 };
 
-{
-  /* {infowindowShown && (
-                  <InfoWindow anchor={marker}>
-                             <ChakraLink
-        as={ReactRouterLink}
-        to={`/restaurant/` + item.place_id}
-      >{item.name}
-                </ChakraLink>
-                </InfoWindow>
-                  )} */
-}
 export default CustomMap;

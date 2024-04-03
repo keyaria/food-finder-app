@@ -10,6 +10,7 @@ Application to help find food near the office. Users can get random restaurants,
 - ExpressJS
 - NodeJS
 
+Live Site: https://foodfinder.vercel.app/
 Prod API Link: https://food-finder-app-production-88d8.up.railway.app
 
 ## Solution / Design Decisions
@@ -78,8 +79,6 @@ yarn cypress open
 2. Get Random Restaurant API
   
     a.  The Google Places API only gives 20 restaurants at a time, so the backend of the projects just grabs a random restaurant from these restaurants. To further improve on this, the backend can track if restaurant has been picked and keep picking from list so the Google Places API is not called until new restaurants is needed.
-3. Folder Structure
-    a.
 
 ## Additional Possible Features
 1. User Favorites
@@ -94,4 +93,4 @@ Personal Site: https://keyaria.github.io/
 
 Linkedin: https://www.linkedin.com/in/keyaria-walker-90749b106/
 
-Worked on 
+Recently Worked on https://ascension.com/ (login and payment system)

@@ -25,7 +25,6 @@ app.use((req, res, next) => {
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500);
-  console.log("ERROR", error);
   res.json({
     error: {
       message: error.message,

@@ -13,7 +13,6 @@ import { fetchPlace } from "../helpers/helpers";
 import { cogentLocation } from "../constants/data";
 
 import CustomMap from "../components/Map";
-// import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
 
 // TODO: add simple Errors and validation, Make Map Component, add get random Restaurant Button
 function HomePage() {
@@ -32,7 +31,6 @@ function HomePage() {
     queryFn: fetchPlace,
   });
 
-  // TODO: Fix bug, search is called onMount
   //Checks Cache after debouncing to see if data has already been retrieved
   const { data: searchResults } = useDebounce(
     useQuery({
@@ -47,7 +45,6 @@ function HomePage() {
         );
 
         const restaurants = await data;
-        console.log("the res", restaurants);
         return restaurants.json();
       },
       enabled: searchTerm.trim() !== "",
