@@ -1,22 +1,23 @@
-import {
-  AdvancedMarker,
-  Map,
-  Pin,
-} from "@vis.gl/react-google-maps";
+import { AdvancedMarker, Map, Pin } from "@vis.gl/react-google-maps";
 import { cogentLocation } from "../constants/data";
 import { Restaurant, RestaurantResponse } from "../types/Restaurant";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   recRestaurant: RestaurantResponse | undefined;
   searchResults: Restaurant[];
   setSelectedRes: any;
+  selectedRes: any;
 };
 
 const CustomMap = ({
   recRestaurant,
   searchResults,
   setSelectedRes,
+  selectedRes,
 }: Props): any => {
+  const navigate = useNavigate();
+
   return (
     <Map
       style={{ width: "100%", height: "100%", minHeight: "100vh" }}
@@ -39,16 +40,15 @@ const CustomMap = ({
           glyphColor={"#0f677a"}
         ></Pin>
       </AdvancedMarker>
-      {recRestaurant && (
+      {recRestaurant && !searchResults && (
         <AdvancedMarker
           position={{
             lat: recRestaurant.restaurant.geometry.location.lat,
             lng: recRestaurant.restaurant.geometry.location.lng,
           }}
+          key={recRestaurant.restaurant.place_id}
         >
-   
-          <Pin> 
-   </Pin>
+          <Pin></Pin>
         </AdvancedMarker>
       )}
       {searchResults &&
@@ -60,13 +60,12 @@ const CustomMap = ({
                   lat: item.geometry.location.lat,
                   lng: item.geometry.location.lng,
                 }}
-                // ref={markerRef}
+                key={item.place_id}
                 data-testid="searchResults"
                 onClick={() => {
-                  setSelectedRes(item);
+                  navigate(`/restaurant/` + item.place_id);
                 }}
-             />
-
+              />
             </>
           );
         })}

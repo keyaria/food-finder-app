@@ -12,19 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { RestaurantResponse } from "../types/Restaurant";
 import { Rating, ThinStar } from "@smastrom/react-rating";
-
-async function fetchRestaurantInfo(
-  id: string | undefined,
-): Promise<RestaurantResponse> {
-  console.log("sea", id);
-  const response = await fetch("/place/" + id);
-  if (!response.ok) {
-    throw new Error("Problem fetching restaurant");
-  }
-  // restaurant = response.json()
-  const restaurant = response.json();
-  return restaurant;
-}
+import { fetchRestaurantInfo } from "../helpers/helpers";
 
 function RestaurantPage() {
   let { id } = useParams();
@@ -64,6 +52,7 @@ function RestaurantPage() {
             rounded="lg"
             flexDir="column"
             p="12"
+            gap="1rem"
           >
             <Heading>{data?.restaurant.name}</Heading>
             <Rating
@@ -84,9 +73,8 @@ function RestaurantPage() {
             <Text>{data.restaurant.user_ratings_total} Reviews</Text>
             {data.restaurant.reviews?.map((review) => {
               return (
-                <Card p="1.2rem" w={["100%", "90%"]} mb="1rem">
+                <Card p="1.2rem" w={["100%"]} mb="1rem">
                   <Flex>
-
                     <Avatar
                       name={review.author_name}
                       src={review.profile_photo_url}

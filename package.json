@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./server/index.ts",
-    "format": "prettier --write \"{server,test}/**/*.{js,ts}\""
+    "build": "tsc && vite build",
+    "format": "prettier --write \"{server,test}/**/*.{js,ts}\"",
+    "test": "vitest"
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.42",

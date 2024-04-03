@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import "../App.css";
 
-import { Button, Flex, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Button, Flex, Grid, GridItem, Input, Text } from "@chakra-ui/react";
 import { Restaurant, RestaurantResponse } from "../types/Restaurant";
 
 import RestaurantCard from "../components/Restaurant/RestaurantCard";
@@ -22,27 +22,20 @@ function HomePage() {
   const [selectedRes, setSelectedRes] = useState<Restaurant>();
 
   const queryClient = useQueryClient();
-  // const [markerRef, marker] = useAdvancedMarkerRef();
-  // const [infowindowShown, setInfowindowShown] = useState(false);
-
-  // const toggleInfoWindow = () =>
-  //   setInfowindowShown((previousState) => !previousState);
-
-  // const closeInfoWindow = () => setInfowindowShown(false);
 
   const {
     data: recRestaurant,
     error,
+    refetch,
+    isLoading,
   } = useQuery<RestaurantResponse>({
-    queryKey: ["getPlace", selectedRes],
+    queryKey: ["getPlace"],
     queryFn: fetchPlace,
   });
 
   // TODO: Fix bug, search is called onMount
   //Checks Cache after debouncing to see if data has already been retrieved
-  const {
-    data: searchResults,
-  } = useDebounce(
+  const { data: searchResults } = useDebounce(
     useQuery({
       queryKey: [`getResults/${queryId}`],
       queryFn: async (arg) => {
@@ -81,8 +74,7 @@ function HomePage() {
 
   const handleClick = () => {
     // manually refetch
-    setQueryId("1");
-    setSearchTerm("    ");
+    refetch();
   };
   return (
     <>
@@ -93,18 +85,22 @@ function HomePage() {
           m="1.4rem"
           ml="0"
           variant="outline"
-          maxW="800px"
+          maxW="600px"
           bg="white"
           data-testid="search"
           onChange={(e) => handleChange(e.target.value)}
         />
+        <Text mr="1rem">OR</Text>
         <Button onClick={handleClick}>Find Restaurant</Button>
       </Flex>
       <Grid templateColumns={{ md: "repeat(5, 1fr)" }} w="100%" h="100%">
         {/* Restaurant Component */}
         <GridItem bg="gray.50" colSpan={2}>
-
-          <div id="search-spinner" aria-hidden hidden={!searching} />
+          <div
+            id="search-spinner"
+            aria-hidden
+            hidden={!searching || !isLoading}
+          />
           {recRestaurant && <RestaurantCard restaurantInfo={recRestaurant} />}
         </GridItem>
         {/* Map Component */}
@@ -113,6 +109,7 @@ function HomePage() {
             recRestaurant={recRestaurant}
             searchResults={searchResults}
             setSelectedRes={setSelectedRes}
+            selectedRes={selectedRes}
           />
         </GridItem>
       </Grid>

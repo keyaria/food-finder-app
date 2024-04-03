@@ -4,7 +4,6 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
 function RestaurantCard({ restaurantInfo }: any) {
-
   const myStyles = {
     itemShapes: ThinStar,
     activeFillColor: "#ffb700",
@@ -17,7 +16,14 @@ function RestaurantCard({ restaurantInfo }: any) {
         as={ReactRouterLink}
         to={`/restaurant/` + restaurantInfo.restaurant.place_id}
       >
-        <Heading as="h3" py="4" px="8" textAlign="center" size="lg" data-testid="heading" >
+        <Heading
+          as="h3"
+          py="4"
+          px="8"
+          textAlign="center"
+          size="lg"
+          data-testid="heading"
+        >
           {restaurantInfo.restaurant.name}
         </Heading>
       </ChakraLink>

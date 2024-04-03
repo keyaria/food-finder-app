@@ -42,6 +42,8 @@ cd client
 Create env file with VITE_GOOGLE_MAPS_API_KEY set to google maps api key
 (this can be retrieved through making a developer Google account and enabling maps and places api or using the key found in the figma file )
 
+Put in ENV VITE_API_BASE_URL which can be either http:localhost:3000 or https://food-finder-app-production-88d8.up.railway.app
+
 yarn add / npm install
 
 yarn dev / npm run dev
@@ -61,6 +63,7 @@ Open http://localhost:5173 with your browser to see the result
 ### Testing Instructions
 ```
 yarn cypress open
+
 ```
 ## Trade Offs
 
