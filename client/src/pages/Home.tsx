@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import "../App.css";
 
 import { Button, Flex, Grid, GridItem, Input, Text } from "@chakra-ui/react";
-import { Restaurant, RestaurantResponse } from "../types/Restaurant";
+import {  RestaurantResponse } from "../types/Restaurant";
 
 import RestaurantCard from "../components/Restaurant/RestaurantCard";
 import useDebounce from "../hooks/useDebounce";
@@ -19,7 +19,6 @@ import CustomMap from "../components/Map";
 function HomePage() {
   const [queryId, setQueryId] = useState<string>("1");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRes, setSelectedRes] = useState<Restaurant>();
 
   const queryClient = useQueryClient();
 
@@ -108,8 +107,6 @@ function HomePage() {
           <CustomMap
             recRestaurant={recRestaurant}
             searchResults={searchResults}
-            setSelectedRes={setSelectedRes}
-            selectedRes={selectedRes}
           />
         </GridItem>
       </Grid>

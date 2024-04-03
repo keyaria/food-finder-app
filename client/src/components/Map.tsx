@@ -6,15 +6,11 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   recRestaurant: RestaurantResponse | undefined;
   searchResults: Restaurant[];
-  setSelectedRes: any;
-  selectedRes: any;
 };
 
 const CustomMap = ({
   recRestaurant,
   searchResults,
-  setSelectedRes,
-  selectedRes,
 }: Props): any => {
   const navigate = useNavigate();
 
